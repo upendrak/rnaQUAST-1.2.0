@@ -22,11 +22,7 @@ RUN wget -O- http://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-bl
 
 # GMAP (The executable is already in path)
 RUN wget -O- http://research-pub.gene.com/gmap/src/gmap-gsnap-2015-12-31.v6.tar.gz | tar zxvf -
-RUN cd gmap-2015-12-31/
-RUN ./configure
-RUN make
-RUN make check
-RUN make install
+RUN cd gmap-2015-12-31 && ./configure && make && make check && make install
 RUN cd ..
 
 # BLAT
