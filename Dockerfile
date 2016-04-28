@@ -26,27 +26,25 @@ RUN cd gmap-2015-12-31 && ./configure && make && make check && make install
 RUN cd ..
 
 # BLAT
-RUN mkdir blat
-RUN cd blat
+RUN mkdir Blat && cd Blat
 RUN wget http://hgwdev.cse.ucsc.edu/~kent/exe/linux/blatSuite.36.zip
 RUN unzip blatSuite.36.zip
 RUN chmod +x blat
 RUN cd ..
 
 # BUSCO
-RUN wget -O- http://busco.ezlab.org/files/BUSCO_v1.1b1.tar.gz | tar zxvf -
-RUN cd BUSCO_v1.1b1/
+#RUN wget -O- http://busco.ezlab.org/files/BUSCO_v1.1b1.tar.gz | tar zxvf -
+#RUN cd BUSCO_v1.1b1
 # change the header to #/usr/bin/env python3
-RUN sed 's|/bin/python|/usr/bin/python3|' BUSCO_v1.1b1.py > temp && mv temp BUSCO_v1.1b1.py
+#RUN sed 's|/bin/python|/usr/bin/python3|' BUSCO_v1.1b1.py > temp && mv temp BUSCO_v1.1b1.py
+RUN mkdir BUSCO_v1.1b1 && cd BUSCO_v1.1b1
+RUN wget https://github.com/upendrak/rnaQUAST-1.2.0/blob/master/BUSCO_v1.1b1.py
 RUN chmod +x BUSCO_v1.1b1.py
 RUN cd ..
 
 # Hmmer: (it should be set to path)
 RUN wget -O- http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz | tar zxvf -
-RUN cd hmmer-3.1b2-linux-intel-x86_64 && ./configure
-RUN make
-RUN make check
-RUN make install	
+RUN cd hmmer-3.1b2-linux-intel-x86_64 && ./configure && make && make check && make install	
 RUN cd ..
 
 # GeneMarkS-T
@@ -58,8 +56,7 @@ RUN cd ..
 
 # STAR for read alignment
 RUN wget -O- https://github.com/alexdobin/STAR/archive/2.5.1b.tar.gz | tar zxvf -
-RUN cd STAR-2.5.1b
-RUN make STAR
+RUN cd STAR-2.5.1b && make STAR
 RUN cd ..
 
 # TopHat read alignment
@@ -70,12 +67,13 @@ RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.7/bowtie2
 RUN unzip download
 
 # Set environmental paths
-ENV PATH=/blat/:$PATH
+ENV PATH=/Blat/:$PATH
+ENV PATH=/ncbi-blast-2.3.0+/bin/:$PATH
 ENV PATH=/BUSCO_v1.1b1/:$PATH
 ENV PATH=/GeneMarkS-T/:$PATH
 ENV PATH=/STAR-2.5.1b/bin/Linux_x86_64_static/:$PATH
 ENV PATH=/tophat-2.1.0.Linux_x86_64/:$PATH
 ENV PATH=/bowtie2-2.2.7/:$PATH
 
-ENTRYPOINT ["rnaQUAST.py"]
+ENTRYPOINT ["/rnaQUAST-1.2.0/rnaQUAST.py"]
 CMD ["-h"]
