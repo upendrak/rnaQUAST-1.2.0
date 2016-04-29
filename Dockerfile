@@ -10,7 +10,7 @@ RUN pip install joblib
 
 # Install rnaQUAST-1.2.0
 RUN wget -O- http://spades.bioinf.spbau.ru/rnaquast/release1.2.0/rnaQUAST-1.2.0.tar.gz | tar zxvf -
-RUN chmod +x rnaQUAST.py
+RUN chmod +x /rnaQUAST-1.2.0/rnaQUAST.py
 
 # Set working directory
 WORKDIR /rnaQUAST-1.2.0
