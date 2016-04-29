@@ -8,12 +8,12 @@ RUN apt-get install -y wget python-pip python-matplotlib make unzip samtools emb
 RUN pip install gffutils 
 RUN pip install joblib 
 
+# Set working directory
+WORKDIR /rnaQUAST-1.2.0
+
 # Install rnaQUAST-1.2.0
 RUN wget -O- http://spades.bioinf.spbau.ru/rnaquast/release1.2.0/rnaQUAST-1.2.0.tar.gz | tar zxvf -
 RUN chmod +x /rnaQUAST-1.2.0/rnaQUAST.py
-
-# Set working directory
-WORKDIR /rnaQUAST-1.2.0
 
 # Install other softwares
 # Blast
