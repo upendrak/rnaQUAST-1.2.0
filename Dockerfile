@@ -10,11 +10,10 @@ RUN pip install joblib
 
 # Install rnaQUAST-1.2.0
 RUN wget -O- http://spades.bioinf.spbau.ru/rnaquast/release1.2.0/rnaQUAST-1.2.0.tar.gz | tar zxvf -
+RUN chmod +x rnaQUAST.py
 
 # Set working directory
 WORKDIR /rnaQUAST-1.2.0
-
-RUN chmod +x rnaQUAST.py && cp rnaQUAST.py /usr/bin
 
 # Install other softwares
 # Blast
@@ -23,37 +22,31 @@ RUN wget -O- http://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-bl
 # GMAP (The executable is already in path)
 RUN wget -O- http://research-pub.gene.com/gmap/src/gmap-gsnap-2015-12-31.v6.tar.gz | tar zxvf -
 RUN cd gmap-2015-12-31 && ./configure && make && make check && make install
-RUN cd ..
 
 # BLAT
 RUN mkdir Blat && cd Blat
 RUN wget http://hgwdev.cse.ucsc.edu/~kent/exe/linux/blatSuite.36.zip
 RUN unzip blatSuite.36.zip
 RUN chmod +x blat
-RUN cd ..
 
 # BUSCO
 RUN mkdir BUSCO_v1.1b1 && cd BUSCO_v1.1b1
 RUN wget https://raw.githubusercontent.com/upendrak/rnaQUAST-1.2.0/master/BUSCO_v1.1b1.py
 RUN chmod +x BUSCO_v1.1b1.py
-RUN cd ..
 
 # Hmmer: (it should be set to path)
 RUN wget -O- http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-linux-intel-x86_64.tar.gz | tar zxvf -
 RUN cd hmmer-3.1b2-linux-intel-x86_64 && ./configure && make && make check && make install	
-RUN cd ..
 
 # GeneMarkS-T
 RUN mkdir GeneMarkS-T
 RUN cd GeneMarkS-T
 RUN wget -O- http://topaz.gatech.edu/GeneMark/tmp/GMtool_BJnvL/gmst_linux_64.tar.gz | tar zxvf -
 RUN chmod +x gmst.pl
-RUN cd ..
 
 # STAR for read alignment
 RUN wget -O- https://github.com/alexdobin/STAR/archive/2.5.1b.tar.gz | tar zxvf -
 RUN cd STAR-2.5.1b && make STAR
-RUN cd ..
 
 # TopHat read alignment
 RUN wget -O- https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.0.Linux_x86_64.tar.gz | tar zxvf -
