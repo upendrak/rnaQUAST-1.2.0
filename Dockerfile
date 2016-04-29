@@ -33,12 +33,8 @@ RUN chmod +x blat
 RUN cd ..
 
 # BUSCO
-#RUN wget -O- http://busco.ezlab.org/files/BUSCO_v1.1b1.tar.gz | tar zxvf -
-#RUN cd BUSCO_v1.1b1
-# change the header to #/usr/bin/env python3
-#RUN sed 's|/bin/python|/usr/bin/python3|' BUSCO_v1.1b1.py > temp && mv temp BUSCO_v1.1b1.py
 RUN mkdir BUSCO_v1.1b1 && cd BUSCO_v1.1b1
-RUN wget https://github.com/upendrak/rnaQUAST-1.2.0/blob/master/BUSCO_v1.1b1.py
+RUN wget https://raw.githubusercontent.com/upendrak/rnaQUAST-1.2.0/master/BUSCO_v1.1b1.py
 RUN chmod +x BUSCO_v1.1b1.py
 RUN cd ..
 
@@ -67,13 +63,13 @@ RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.7/bowtie2
 RUN unzip download
 
 # Set environmental paths
-ENV PATH=/Blat/:$PATH
-ENV PATH=/ncbi-blast-2.3.0+/bin/:$PATH
-ENV PATH=/BUSCO_v1.1b1/:$PATH
-ENV PATH=/GeneMarkS-T/:$PATH
-ENV PATH=/STAR-2.5.1b/bin/Linux_x86_64_static/:$PATH
-ENV PATH=/tophat-2.1.0.Linux_x86_64/:$PATH
-ENV PATH=/bowtie2-2.2.7/:$PATH
+ENV PATH /rnaQUAST-1.2.0/Blat/:$PATH
+ENV PATH /rnaQUAST-1.2.0/ncbi-blast-2.3.0+/bin/:$PATH
+ENV PATH /rnaQUAST-1.2.0/BUSCO_v1.1b1/:$PATH
+ENV PATH /rnaQUAST-1.2.0/GeneMarkS-T/:$PATH
+ENV PATH /rnaQUAST-1.2.0/STAR-2.5.1b/bin/Linux_x86_64_static/:$PATH
+ENV PATH /rnaQUAST-1.2.0/tophat-2.1.0.Linux_x86_64/:$PATH
+ENV PATH /rnaQUAST-1.2.0/bowtie2-2.2.7/:$PATH
 
 ENTRYPOINT ["/rnaQUAST-1.2.0/rnaQUAST.py"]
 CMD ["-h"]
