@@ -31,15 +31,17 @@ RUN unzip blatSuite.36.zip
 RUN chmod +x blat
 
 # TopHat read alignment
+WORKDIR /rnaQUAST-1.2.0
 RUN wget -O- https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.0.Linux_x86_64.tar.gz | tar zxvf -
 
 # Bowtie2
+WORKDIR /rnaQUAST-1.2.0
 RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.7/bowtie2-2.2.7-linux-x86_64.zip/download
 RUN unzip download
 
 # BUSCO
 RUN mkdir BUSCO_v1.1b1 
-WORKDIR /rnaQUAST-1.2.0/BUSCO_v1.1b1
+WORKDIR BUSCO_v1.1b1
 RUN wget https://raw.githubusercontent.com/upendrak/rnaQUAST-1.2.0/master/BUSCO_v1.1b1.py
 RUN chmod +x BUSCO_v1.1b1.py
 
@@ -50,7 +52,7 @@ RUN cd hmmer-3.1b2-linux-intel-x86_64 && ./configure && make && make check && ma
 
 # GeneMarkS-T
 RUN mkdir GeneMarkS-T
-WORKDIR /rnaQUAST-1.2.0/GeneMarkS-T
+WORKDIR GeneMarkS-T
 RUN wget -O- http://topaz.gatech.edu/GeneMark/tmp/GMtool_BJnvL/gmst_linux_64.tar.gz | tar zxvf -
 RUN chmod +x gmst.pl
 
